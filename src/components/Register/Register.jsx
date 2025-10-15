@@ -9,6 +9,11 @@ const Register = () => {
         event.preventDefault();
         const email=event.target.email.value;
         const password=event.target.password.value;
+        const passwordPattern = /^.{6,}$/;
+        if(!passwordPattern.test(password)){
+          setError("Password Should Be More Than 6 Character Or Longer");
+          return ;
+        }
         setError('');
         setSuccess(false);
         console.log("register clicked",email,password);       
