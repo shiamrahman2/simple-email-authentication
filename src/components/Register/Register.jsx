@@ -11,6 +11,7 @@ const Register = () => {
         event.preventDefault();
         const email=event.target.email.value;
         const password=event.target.password.value;
+        const terms=event.target.terms.value.checked;
         const passwordPattern = /^.{6,}$/;
         const casePasswordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
         const specialCharPattern = /^(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
@@ -23,6 +24,10 @@ const Register = () => {
         }else if(!specialCharPattern.test(password)){
             setError('Wrong password: must include at least one special symbol');
             return;
+        }
+        if(!terms){
+          setError('Please Accept Our Terms and Conditions');
+           return;
         }
         setError('');
         setSuccess(false);
@@ -64,7 +69,9 @@ const Register = () => {
                <button onClick={handleTogglePassword} className="btn btn-xs absolute top-2 right-5">{showPassword?<EyeOff></EyeOff>:<Eye></Eye>}</button>
            </div>
             <label class="label">
-           <input type="checkbox" class="checkbox" />
+           <input type="checkbox"
+             name="terms"
+            class="checkbox" />
               Accept Our Terms and Conditions
               </label>
           <div><a className="link link-hover">Forgot password?</a></div>
