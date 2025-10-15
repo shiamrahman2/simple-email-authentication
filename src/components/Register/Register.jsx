@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../../firebase/firebase.config';
 import { Eye, EyeOff } from 'lucide-react';
+import { Link } from 'react-router';
 
 const Register = () => {
   const [error,setError]=useState('');// default no error 
@@ -11,7 +12,7 @@ const Register = () => {
         event.preventDefault();
         const email=event.target.email.value;
         const password=event.target.password.value;
-        const terms=event.target.terms.value.checked;
+        const terms = event.target.terms.checked;
         const passwordPattern = /^.{6,}$/;
         const casePasswordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
         const specialCharPattern = /^(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
@@ -84,6 +85,7 @@ const Register = () => {
          {
             error && <p className='text-red-500'><small>{error}</small></p>
          }
+         <p>Already have a account. Please <Link className='text-blue-500 underline' to={'/login'}>Login</Link></p>
         </form>
       </div>
     </div>
