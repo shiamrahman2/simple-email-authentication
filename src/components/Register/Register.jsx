@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../../firebase/firebase.config';
 import { Eye, EyeOff } from 'lucide-react';
@@ -38,6 +38,11 @@ const Register = () => {
             console.log(result);
             setSuccess(true);
             event.target.reset();
+             sendEmailVerification(result.user)
+             .then(result=>{
+                alert('Please Login To Your Email and Verified Email');
+             });
+             
           })
           .catch((error)=>{
            // console.log(error);
