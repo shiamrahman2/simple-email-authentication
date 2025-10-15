@@ -1,10 +1,12 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../../firebase/firebase.config';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Register = () => {
   const [error,setError]=useState('');// default no error 
   const [success,setSuccess]=useState(false);
+  const [showPassword,setShowPassword]=useState(false);
     const handleSubmit=(event)=>{
         event.preventDefault();
         const email=event.target.email.value;
@@ -38,6 +40,10 @@ const Register = () => {
           })
 
     }
+    const handleTogglePassword=(event)=>{
+      event.preventDefault();
+      setShowPassword(!showPassword);
+    }
     return (
        <div className="hero bg-base-200 min-h-screen">
   <div className="hero-content flex-col lg:flex-row-reverse">
@@ -51,7 +57,16 @@ const Register = () => {
           <label className="label">Email</label>
           <input type="email" name="email" className="input" placeholder="Email" />
           <label className="label">Password</label>
-          <input type="password" name="password" className="input" placeholder="Password" />
+           <div className='relative'>
+               <input type={showPassword?"text":"password"}
+                name="password"
+                 className="input" placeholder="Password" />
+               <button onClick={handleTogglePassword} className="btn btn-xs absolute top-2 right-5">{showPassword?<EyeOff></EyeOff>:<Eye></Eye>}</button>
+           </div>
+            <label class="label">
+           <input type="checkbox" class="checkbox" />
+              Accept Our Terms and Conditions
+              </label>
           <div><a className="link link-hover">Forgot password?</a></div>
           <button className="btn btn-neutral mt-4">Register</button>
         </fieldset>
