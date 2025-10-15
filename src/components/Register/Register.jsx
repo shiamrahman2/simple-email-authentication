@@ -10,9 +10,17 @@ const Register = () => {
         const email=event.target.email.value;
         const password=event.target.password.value;
         const passwordPattern = /^.{6,}$/;
+        const casePasswordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        const specialCharPattern = /^(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
         if(!passwordPattern.test(password)){
           setError("Password Should Be More Than 6 Character Or Longer");
           return ;
+        }else if(!casePasswordPattern.test(password)){
+           setError("Wrong password: must have uppercase, lowercase, and at least 6 characters");
+           return;
+        }else if(!specialCharPattern.test(password)){
+            setError('Wrong password: must include at least one special symbol');
+            return;
         }
         setError('');
         setSuccess(false);
